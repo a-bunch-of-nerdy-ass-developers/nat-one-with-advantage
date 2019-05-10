@@ -10,7 +10,7 @@ function errorHandler(err, req, res, next) {
     }
 
     // default to 500 server error
-    return res.status(500).json({error: { code: message.code || 'UNEXPECTED', msg: err.message }});
+    return res.status(500).json({error: { code: err.code || 'UNEXPECTED', msg: err.message }});
 }
 
 module.exports = errorHandler;

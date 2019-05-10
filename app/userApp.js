@@ -36,4 +36,5 @@ async function register(email, password, firstName, lastName) {
 
 module.exports = {
     login,
+    register,
 };

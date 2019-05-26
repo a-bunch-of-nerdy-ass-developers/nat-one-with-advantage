@@ -5,6 +5,7 @@ const CampaignSchema = new Schema({
     title: String,
     description: String,
     avatarUrl: String,
+    isPrivate: { type: Boolean, default:  false },
 }, {timestamps: true});
 
 const Campaign = mongoose.model('Campaign', CampaignSchema);

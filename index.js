@@ -11,7 +11,7 @@ const app = express();
 const PORT = 9192;
 
 mongoose.Promise = global.Promise;
-mongoose.connect(mongodbConfig.uri, {useNewUrlParser: true})
+mongoose.connect(mongodbConfig.uri, {useNewUrlParser: true});
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

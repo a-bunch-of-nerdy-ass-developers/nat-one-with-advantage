@@ -1,13 +1,20 @@
 const Fight = require('../models/Fight');
 
-async function createNew(title, description) {
-    const c = new Fight({
-        title,
-        description,
-    });
-    await c.save();
-}
-
 module.exports = {
-    createNew,
+    createNew: async function (title, description, isPrivate) {
+        const c = new Fight({
+            title,
+            description,
+            isPrivate,
+        });
+        await c.save();
+    },
+
+    getAllPublic: async function () {
+        return Fight
+                .find({ isPrivate: false })
+                .lean()
+                .exec();
+    }
+
 };

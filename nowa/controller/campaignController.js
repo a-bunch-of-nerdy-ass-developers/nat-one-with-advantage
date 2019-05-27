@@ -11,7 +11,7 @@ router.post('/', async(req, res, next) => {
     try {
         const {title, description, avatarUrl, isPrivate} = req.body;
         await campaignApp.createNew(title, description, avatarUrl, isPrivate);
-        res.status(200);
+        res.status(200).send();
     } catch (e) {
         next(e);
     }
@@ -23,7 +23,7 @@ router.post('/:campaignId/fight', async(req, res, next) => {
         const campaignId = req.params.campaignId;
         const {title, description, isPrivate} = req.body;
         await fightApp.createNew(campaignId, title, description, isPrivate);
-        res.status(200);
+        res.status(200).send();
     } catch (e) {
         next(e);
     }
@@ -37,3 +37,5 @@ router.get('/', async(req, res, next) => {
         next(e);
     }
 });
+
+module.exports = router;

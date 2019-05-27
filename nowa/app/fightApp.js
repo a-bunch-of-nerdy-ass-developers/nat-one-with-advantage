@@ -1,6 +1,6 @@
 const Fight = require('../models/Fight');
 const Action = require('../models/Action');
-const io = require('../socketIO');
+const {io, sockets} = require('../socketIO');
 
 module.exports = {
     createNew: async function (campaignId, title, description, isPrivate) {
@@ -28,13 +28,22 @@ module.exports = {
             reactions,
             outputs
         });
-        a.save();
-        io.to(`fight-${fightId}`).emit({
-            actionType,
-            targets,
-            reactions,
-            outputs
-        });
-    }
+        if (Array.isArray(sockets[fightId])) {
+            sockets[fightId].forEach(s => s.emit('update fight', {
+                actionType,
+                targets,
+                reactions,
+                outputs
+            }));
+        }
+        return a.save;
+    },
+
+    getById: async function(id) {
+      return Fight
+              .findById(id)
+              .lean()
+              .exec();
+    },
 
 };

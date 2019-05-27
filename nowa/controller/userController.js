@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-const authorization = require('../util/authorization');
 const userApp = require('../app/userApp');
 
 router.post('/login', async (req, res, next) => {

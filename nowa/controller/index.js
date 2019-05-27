@@ -1,6 +1,7 @@
 const routes = {
     '/user': require('./userController.js'),
     '/campaign': require('./campaignController.js'),
+    '/fight': require('./fightController.js'),
 };
 
 module.exports = (app) => {

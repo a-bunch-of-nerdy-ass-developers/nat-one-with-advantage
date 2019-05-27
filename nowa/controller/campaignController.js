@@ -7,7 +7,7 @@ const fightApp = require('../app/fightApp');
 const UserRole = require('../models/UserRole');
 
 
-router.post('/', authorization([UserRole.USER]), async(req, res, next) => {
+router.post('/', async(req, res, next) => {
     try {
         const {title, description, avatarUrl, isPrivate} = req.body;
         await campaignApp.createNew(title, description, avatarUrl, isPrivate);
@@ -18,30 +18,22 @@ router.post('/', authorization([UserRole.USER]), async(req, res, next) => {
 });
 
 
-router.post('/:campaignId/fight', authorization([UserRole.USER]), async(req, res, next) => {
+router.post('/:campaignId/fight', async(req, res, next) => {
     try {
+        const campaignId = req.params.campaignId;
         const {title, description, isPrivate} = req.body;
-        await fightApp.createNew(title, description, isPrivate);
+        await fightApp.createNew(campaignId, title, description, isPrivate);
         res.status(200);
     } catch (e) {
         next(e);
     }
 });
 
-router.get('/', authorization([UserRole]), async(req, res, next) => {
+router.get('/', async(req, res, next) => {
     try {
         const campaigns = await campaignApp.getAllPublic();
         res.json({ campaigns });
     } catch (e) {
         next(e);
     }
-});
-
-router.get('/fight', authorization([UserRole.USER]), async(req, res, next) => {
-   try {
-       const fights = await fightApp.getAllPublic();
-       res.json({ fights });
-   } catch (e) {
-       next(e);
-   }
 });

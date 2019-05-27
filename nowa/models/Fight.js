@@ -15,6 +15,7 @@ const Side = {
 };
 
 const FightSchema = new Schema({
+	campaignId: Schema.ObjectId,
 	title: String,
 	description: String,
 	isPrivate: { type: Boolean, default: false },

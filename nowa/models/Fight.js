@@ -6,6 +6,8 @@ const Race = {
 	ELF: 'ELF',
 	GNOME: 'GNOME',
 	HUMAN: 'HUMAN',
+	GOLEM: 'GOLEM',
+	SKELETON: 'SKELETON'
 };
 
 const Side = {

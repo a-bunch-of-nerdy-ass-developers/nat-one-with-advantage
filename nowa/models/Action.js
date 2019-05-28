@@ -11,12 +11,15 @@ const ActionType = {
 
 const ActionSchema = new Schema({
     fightId: Schema.ObjectId,
+    characterId: Schema.ObjectId,
+    characterName: String, //TODO redundant
     actionType: { type: String, enum: Object.values(ActionType) },
     targets: [{x: Number, y: Number}],
     reactions: [{ type: String, enum: Object.values(ActionType) }], // TODO
     output: [
         {
             characterId: Schema.ObjectId,
+            characterName: String, // TODO redundant
             actionType: { type: String, enum: Object.values(ActionType) },
             damageAmount: Number
         }

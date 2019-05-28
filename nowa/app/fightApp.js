@@ -3,11 +3,13 @@ const Action = require('../models/Action');
 const {io, sockets} = require('../socketIO');
 
 module.exports = {
-    createNew: async function (campaignId, title, description, isPrivate) {
+    createNew: async function (campaignId, title, description, items, grid, isPrivate) {
         const c = new Fight({
             campaignId,
             title,
             description,
+            items,
+            grid,
             isPrivate,
         });
         await c.save();
@@ -20,23 +22,25 @@ module.exports = {
                 .exec();
     },
 
-    doAnAction: async function(fightId, actionType, targets, reactions, outputs) {
+    doAnAction: async function(fightId, characterName, actionType, targets, reactions, outputs) {
         const a = new Action({
             fightId,
             actionType,
             targets,
             reactions,
-            outputs
+            outputs,
+            characterName,
         });
+        await a.save();
         if (Array.isArray(sockets[fightId])) {
             sockets[fightId].forEach(s => s.emit('update fight', {
                 actionType,
                 targets,
                 reactions,
-                outputs
+                outputs,
+                characterName,
             }));
         }
-        return a.save;
     },
 
     getById: async function(id) {

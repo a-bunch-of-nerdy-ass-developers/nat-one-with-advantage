@@ -25,8 +25,8 @@ router.get('/:fightId', async (req, res, next) => {
 router.post('/:fightId/action', async (req, res, next) => {
    try {
        const fightId = req.params.fightId;
-       const { actionType, targets, reactions, outputs } = req.body;
-       await fightApp.doAnAction(fightId, actionType, targets, reactions, outputs);
+       const { characterName, actionType, targets, reactions, outputs } = req.body;
+       await fightApp.doAnAction(fightId, characterName, actionType, targets, reactions, outputs);
        res.status(200).send();
    } catch (e) {
        next(e);

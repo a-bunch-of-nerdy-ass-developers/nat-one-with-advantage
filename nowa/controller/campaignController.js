@@ -21,8 +21,8 @@ router.post('/', async(req, res, next) => {
 router.post('/:campaignId/fight', async(req, res, next) => {
     try {
         const campaignId = req.params.campaignId;
-        const {title, description, isPrivate} = req.body;
-        await fightApp.createNew(campaignId, title, description, isPrivate);
+        const {title, description, items, grid, isPrivate} = req.body;
+        await fightApp.createNew(campaignId, title, description, items, grid, isPrivate);
         res.status(200).send();
     } catch (e) {
         next(e);
